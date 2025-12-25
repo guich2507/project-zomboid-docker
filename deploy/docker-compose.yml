@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  project-zomboid-server:
+    image: yourdockerhubuser/project-zomboid:latest
+    container_name: project-zomboid-server
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    volumes:
+      # Option 1: volume nommé (Docker gère le stockage)
+      - pz-data:/pz
+
+      # Option 2: bind mount (décommenter si souhaité)
+      # - /path/on/host/pz:/pz
+
+    ports:
+      - "${PZ_PORT_MAIN:-16261}:16261/udp"
+      - "${PZ_PORT_PLAYER:-16262}:16262/udp"
+      - "${PZ_PORT_STEAM:-8766}:8766/udp"
+
+volumes:
+  pz-data:
