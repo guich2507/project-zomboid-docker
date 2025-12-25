@@ -71,10 +71,18 @@ if [[ ! -x "${START_SCRIPT}" ]]; then
 fi
 
 # =========================
+# Configuration HOME pour Project Zomboid
+# =========================
+# Project Zomboid utilise $HOME/Zomboid pour stocker ses données
+# On force HOME vers /pz pour que les fichiers soient dans /pz/Zomboid
+export HOME="${PZ_ROOT}"
+
+# =========================
 # Lancement serveur (PID 1)
 # =========================
 echo "[INFO] Starting Project Zomboid Dedicated Server"
 echo "[INFO] Server name: ${PZ_SERVER_NAME}"
+echo "[INFO] HOME directory: ${HOME}"
 
 cd "${PZ_SERVER_DIR}"
 
