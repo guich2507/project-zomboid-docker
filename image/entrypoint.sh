@@ -71,18 +71,20 @@ if [[ ! -x "${START_SCRIPT}" ]]; then
 fi
 
 # =========================
-# Configuration HOME pour Project Zomboid
+# Configuration du répertoire Zomboid
 # =========================
-# Project Zomboid utilise $HOME/Zomboid pour stocker ses données
-# On force HOME vers /pz pour que les fichiers soient dans /pz/Zomboid
-export HOME="${PZ_ROOT}"
+# Project Zomboid (Java) utilise user.home pour déterminer où créer le dossier "Zomboid"
+# On utilise JAVA_TOOL_OPTIONS pour forcer user.home=/pz automatiquement
+# Java ajoutera automatiquement cette option à toutes les commandes java
+export JAVA_TOOL_OPTIONS="-Duser.home=${PZ_ROOT}"
+echo "[INFO] Set JAVA_TOOL_OPTIONS=-Duser.home=${PZ_ROOT}"
 
 # =========================
 # Lancement serveur (PID 1)
 # =========================
 echo "[INFO] Starting Project Zomboid Dedicated Server"
 echo "[INFO] Server name: ${PZ_SERVER_NAME}"
-echo "[INFO] HOME directory: ${HOME}"
+echo "[INFO] Zomboid directory: ${PZ_ROOT}/Zomboid"
 
 cd "${PZ_SERVER_DIR}"
 
